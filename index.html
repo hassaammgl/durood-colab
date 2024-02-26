@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>colaborative durood</title>
+  </head>
+  <body>
+    <ul id="messages">
+      <h2 id="nums">0</h2>
+    </ul>
+    <form id="form" action="">
+      <button>Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+      let num = 0;
+      const nums = document.getElementById("nums");
+      const form = document.getElementById("form");
+
+      nums.innerHTML = window.localStorage.getItem("nums");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        socket.emit("chat message", num + 1);
+      });
+      socket.on("chat message", (number) => {
+        nums.innerHTML = number;
+        window.localStorage.setItem("nums", number);
+      });
+    </script>
+  </body>
+</html>
