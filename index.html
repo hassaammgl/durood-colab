@@ -4,13 +4,40 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>colaborative durood</title>
   </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: rgb(34, 34, 34);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 100%;
+    }
+    .body {
+      width: 400px;
+      height: 450px;
+      border: 7px solid red;
+      border-radius: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
   <body>
-    <ul id="messages">
+    <div class="body">
       <h2 id="nums">0</h2>
-    </ul>
-    <form id="form" action="">
-      <button>Send</button>
-    </form>
+      <form id="form" action="">
+        <button>Send</button>
+        <button type="reset">Reset</button>
+      </form>
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
       const socket = io();
@@ -23,6 +50,10 @@
       form.addEventListener("submit", (e) => {
         e.preventDefault();
         socket.emit("chat message", num + 1);
+      });
+      form.addEventListener("reset", (e) => {
+        e.preventDefault();
+        socket.emit("reset","reset");
       });
       socket.on("chat message", (number) => {
         nums.innerHTML = number;

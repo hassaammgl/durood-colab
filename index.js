@@ -20,6 +20,10 @@ io.on("connection", (socket) => {
     io.emit("chat message", num);
     console.log(num);
   });
+  socket.on("reset", () => {
+    num = 0;
+    console.log("reset");
+  });
 });
 
 server.listen(3000, () => {
